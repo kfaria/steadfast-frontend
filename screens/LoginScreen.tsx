@@ -42,21 +42,28 @@ export default function LoginScreen({
     }
   `;
   
-  const [login, { data: mutationData, loading: mutationLoading, error: mutationError }] = useMutation(LOGIN)
+  const [login, { loading: mutationLoading }] = useMutation(LOGIN)
   const [email, setEmail] = React.useState('Kenneth')
   const [passphrase, setPassphrase] = React.useState('pray')
   
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to Steadfast!</Text>
-      <form onSubmit={e => {
-          e.preventDefault();
-          login({
-            variables: {
-              email,
-              passphrase
-            }
+      <form onSubmit={async e => {
+        e.preventDefault();
+        try {
+          const result = await login({
+                      variables: {
+                        email,
+                        passphrase
+                      }
           })
+          navigation.navigate('Root')
+          console.log(result)
+        } catch {
+          console.log("gg")
+        }
+          
       }}>
         <Text style={styles.title}>Email</Text>
         <TextInput
@@ -73,9 +80,6 @@ export default function LoginScreen({
         <button title='Login' type='submit'>Login</button>  
       </form>
         {mutationLoading && <p>Loading...</p>}
-        {mutationError && <p>Error :( Please try again</p>}
-        {mutationData && console.log(InMemoryCache)}
-        {/* {mutationData && navigation.navigate('Root')} */}
     </View>
   )
 }
