@@ -8,6 +8,8 @@ export type RootStackParamList = {
 export type BottomTabParamList = {
   TabOne: undefined;
   TabTwo: undefined;
+  PrayerJourneys: undefined;
+  PrayerIntentions: undefined;
 };
 
 export type TabOneParamList = {

@@ -36,24 +36,21 @@ export default function RegisterScreen({
   `;
   const [registerUser, { data: mutationData, loading: mutationLoading }] = useMutation(REGISTER_USER)
 
+  async function submitUserRegistration(e: { preventDefault: () => void; }) {
+    e.preventDefault();
+      console.log({email, lastName, firstName, password})
+      registerUser({
+        variables: {
+          email: email,
+          lastName: lastName,
+          firstName: firstName,
+          passphrase: password
+        }
+      })
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Please Register!</Text>
-      <form
-        onSubmit={async e => {
-          e.preventDefault();
-          console.log({email, lastName, firstName, password})
-          registerUser({
-            variables: {
-              email: email,
-              lastName: lastName,
-              firstName: firstName,
-              passphrase: password
-            }
-          })
-          console.log()
-        }}
-      >
         <Text style={styles.title}>First Name</Text>
         <TextInput
           style={styles.inputBox}
@@ -77,8 +74,7 @@ export default function RegisterScreen({
           value={password}
           onChangeText={password => setPassword(password)}>
           </TextInput>
-        <button title='Register' type='submit'>Register</button>
-      </form>
+        <Button title='Register' onPress={submitUserRegistration}>Register</Button>
     </View>
   )
 }

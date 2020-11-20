@@ -18,8 +18,16 @@ export default {
           },
         },
       },
-      NotFound: '*',
-      Register: '*',
+      // NotFound: '*',
+      Register: {
+        screens: {
+          Register: {
+            screens: {
+              RegisterScreen: 'register'
+            }
+          }
+        }
+      },
       Login: '*'
     },
   },

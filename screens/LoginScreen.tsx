@@ -24,62 +24,49 @@ export default function LoginScreen({
           id
           email
           firstName
-          lastName
-          prayerRequests {
-            id
-            intention
-          }
-          prayerJourneys{
-            id
-            progress
-            isPaused
-            devotion{
-              name
-            }
+          lastName          
           }
         }
       }
-    }
   `;
   
   const [login, { loading: mutationLoading }] = useMutation(LOGIN)
   const [email, setEmail] = React.useState('Kenneth')
   const [passphrase, setPassphrase] = React.useState('pray')
   
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome to Steadfast!</Text>
-      <form onSubmit={async e => {
-        e.preventDefault();
+
+  async function loginUser (e: { preventDefault: () => void; }){
+    e.preventDefault();
         try {
-          const result = await login({
-                      variables: {
-                        email,
-                        passphrase
-                      }
+          const result =  login({
+            variables: {
+              email,
+              passphrase
+            }
           })
           navigation.navigate('Root')
           console.log(result)
         } catch {
           console.log("gg")
         }
-          
-      }}>
+  }
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Welcome to Steadfast!</Text>
         <Text style={styles.title}>Email</Text>
         <TextInput
           style={styles.inputBox}
           value={email}
           onChangeText={email => setEmail(email)}>
-          </TextInput>
+        </TextInput>
         <Text style={styles.title}>Password</Text>
         <TextInput
           style={styles.inputBox}
           value={passphrase}
           onChangeText={passphrase => setPassphrase(passphrase)}>
         </TextInput>
-        <button title='Login' type='submit'>Login</button>  
-      </form>
-        {mutationLoading && <p>Loading...</p>}
+        <Button title='Login' onPress={loginUser}><Text>Login!</Text></Button>  
+        {mutationLoading && <Text>Loading...</Text>}
     </View>
   )
 }
