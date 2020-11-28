@@ -20,7 +20,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as theme from '../assets/theme.ts' 
 const { width, height } = Dimensions.get('window');
 
-export default function PrayerJourney({ path }: { path: string }) {
+export default function PrayerJourney({ path, navigation }: { path: string, navigation: any }) {
   let scrollX = new Animated.Value(0);
   const PRAYER_JOURNEYS_BY_ID = gql`
     {
@@ -32,6 +32,8 @@ export default function PrayerJourney({ path }: { path: string }) {
           prayerJourneys {
             id
             devotion {
+              type
+              thumbnailImg
               name
             }
             progress
@@ -41,6 +43,8 @@ export default function PrayerJourney({ path }: { path: string }) {
     devotions{
         id
         name
+        type
+        thumbnailImg
       }
     }
   `
@@ -74,11 +78,11 @@ export default function PrayerJourney({ path }: { path: string }) {
     )
   }
 
-  const renderDevotionCard = (item: { name: React.ReactNode; }) => {
+  const renderDevotionCard = (item: { name: React.ReactNode, thumbnailImg: React.ReactNode }) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={ () => {navigation.navigate('PrayerJourneyModal', { devotion: item })}}>
         <ImageBackground
-          source={{ uri: 'https://cdn.getyourguide.com/img/location/5474840409adb.jpeg/92.jpg' }}
+          source={{ uri: item.thumbnailImg }}
           style={[styles.flex, styles.destination, styles.shadow]}
           imageStyle={{ borderRadius: theme.default.sizes.radius }}
         >
@@ -108,7 +112,7 @@ export default function PrayerJourney({ path }: { path: string }) {
     )
   }
 
-  const renderPrayerJourneys = () => {
+  const renderJourneys = () => {
     return (
       <View style={[styles.flex, styles.column, styles.recommended ]}>
         <View
@@ -130,14 +134,14 @@ export default function PrayerJourney({ path }: { path: string }) {
             style={[ styles.shadow, { overflow: 'visible' }]}
             data={data.userById.prayerJourneys}
             keyExtractor={(item, index) => `${item.id}`}
-            renderItem={({ item, index }) => renderPrayerDevotionCard(item, index)}
+            renderItem={({ item, index }) => renderJourneyDevotionCard(item, index)}
           />
         </View>
       </View>
     )
   }
 
-  const renderPrayerDevotionCard = (item, index) => {
+  const renderJourneyDevotionCard = (item, index) => {
     const isLastItem = index === data.userById.prayerJourneys.length - 1;
     return (
       <View style={[
@@ -146,7 +150,7 @@ export default function PrayerJourney({ path }: { path: string }) {
         isLastItem ? { marginRight: theme.default.sizes.margin / 2 } : null,
       ]}>
         <View style={[styles.flex, styles.recommendationHeader]}>
-          <Image style={[styles.recommendationImage]} source={{ uri: 'https://cdn.getyourguide.com/img/location/5474840409adb.jpeg/92.jpg' }} />
+          <Image style={[styles.recommendationImage]} source={{ uri: item.devotion.thumbnailImg }} />
         </View>
         <View style={[styles.flex, styles.column, styles.shadow, { justifyContent: 'space-evenly', padding: theme.default.sizes.padding / 2 }]}>
           <Text style={{ fontSize: theme.default.sizes.font * 1.25, fontWeight: '500', paddingBottom: theme.default.sizes.padding / 4.5, }}>{item.devotion.name}</Text>
@@ -161,7 +165,7 @@ export default function PrayerJourney({ path }: { path: string }) {
       showsVerticalScrollIndicator={false}
     >
       {renderDevotions()}  
-      {renderPrayerJourneys()}  
+      {renderJourneys()}  
     </ScrollView>
   )
 }

@@ -45,9 +45,9 @@ export default function LoginScreen({
             }
           })
           navigation.navigate('Root')
-          console.log(result)
+          // console.log(result)
         } catch {
-          console.log("gg")
+          console.log("Error occured in login")
         }
   }
   return (
