@@ -12,7 +12,7 @@ import * as Animatable from 'react-native-animatable';
 import Accordion from 'react-native-collapsible/Accordion';
 
 type props = {
-prayers: Array<object>
+  prayers: Array<object>
 }
 
 type state = {
@@ -62,7 +62,7 @@ export default class DevotionPrayerList extends Component <props, state> {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <Accordion
             activeSections={this.state.activeSections}
             sections={this.props.prayers}
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#F5FCFF',
-    padding: 10,
+    padding: 5,
   },
   headerText: {
     textAlign: 'center',
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,1)',
   },
   inactive: {
-    backgroundColor: 'rgba(245,252,255,1)',
+    backgroundColor: 'rgba(255,255,255,1)',
   },
   content: {
     padding: 20,

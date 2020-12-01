@@ -112,60 +112,11 @@ export default function PrayerJourney({ path, navigation }: { path: string, navi
     )
   }
 
-  const renderJourneys = () => {
-    return (
-      <View style={[styles.flex, styles.column, styles.recommended ]}>
-        <View
-          style={[
-            styles.row,
-            styles.recommendedHeader
-          ]}
-        >
-          <Text style={{ fontSize: theme.default.sizes.font * 1.4 }}>Started Journey</Text>
-        </View>
-        <View style={[styles.column, styles.recommendedList]}>
-          <FlatList
-            horizontal
-            pagingEnabled
-            scrollEnabled
-            showsHorizontalScrollIndicator={false}
-            scrollEventThrottle={16}
-            snapToAlignment="center"
-            style={[ styles.shadow, { overflow: 'visible' }]}
-            data={data.userById.prayerJourneys}
-            keyExtractor={(item, index) => `${item.id}`}
-            renderItem={({ item, index }) => renderJourneyDevotionCard(item, index)}
-          />
-        </View>
-      </View>
-    )
-  }
-
-  const renderJourneyDevotionCard = (item, index) => {
-    const isLastItem = index === data.userById.prayerJourneys.length - 1;
-    return (
-      <View style={[
-        styles.flex, styles.column, styles.recommendation, styles.shadow, 
-        index === 0 ? { marginLeft: theme.default.sizes.margin } : null,
-        isLastItem ? { marginRight: theme.default.sizes.margin / 2 } : null,
-      ]}>
-        <View style={[styles.flex, styles.recommendationHeader]}>
-          <Image style={[styles.recommendationImage]} source={{ uri: item.devotion.thumbnailImg }} />
-        </View>
-        <View style={[styles.flex, styles.column, styles.shadow, { justifyContent: 'space-evenly', padding: theme.default.sizes.padding / 2 }]}>
-          <Text style={{ fontSize: theme.default.sizes.font * 1.25, fontWeight: '500', paddingBottom: theme.default.sizes.padding / 4.5, }}>{item.devotion.name}</Text>
-          <Text style={{ color: theme.default.colors.caption }}>Placeholder</Text>
-        </View>
-      </View>
-    )
-  }
-
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
     >
       {renderDevotions()}  
-      {renderJourneys()}  
     </ScrollView>
   )
 }

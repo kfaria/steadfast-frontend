@@ -7,8 +7,7 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  HomeScreen: undefined;
   PrayerJourneys: undefined;
   PrayerIntentions: undefined;
 };

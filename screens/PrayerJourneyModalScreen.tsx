@@ -42,8 +42,12 @@ export default function PrayerJourneyModalScreen({ route, navigation }: { route:
 
   const { data, loading, error } = useQuery(DEVOTION_PRAYERS_BY_DEVOTION_ID, { variables: { devotionId: devotion.id } })
 
-  // console.log(data.devotionPrayersByDevotionId[0])
 
+  if (loading) {
+    return (
+      <Text>Loading...</Text>
+    )
+  }
   return (
       <View style={styles.flex}>
         <View style={[styles.flex]}>

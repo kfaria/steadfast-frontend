@@ -45,7 +45,6 @@ export default function LoginScreen({
             }
           })
           navigation.navigate('Root')
-          // console.log(result)
         } catch {
           console.log("Error occured in login")
         }
