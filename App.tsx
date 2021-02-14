@@ -3,6 +3,8 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppRegistry } from 'react-native';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
 
 
 import useCachedResources from './hooks/useCachedResources';
@@ -22,12 +24,15 @@ export default function App() {
     return null;
   } else {
     return (
-      <ApolloProvider client={client}>
-        <SafeAreaProvider>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
-        </SafeAreaProvider>
-      </ApolloProvider>
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <ApolloProvider client={client}>
+          <SafeAreaProvider>
+            <Navigation colorScheme={colorScheme} />
+            <StatusBar />
+          </SafeAreaProvider>
+        </ApolloProvider>
+      </ApplicationProvider>
+      
     );
   }
 }

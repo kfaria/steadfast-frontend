@@ -1,9 +1,10 @@
-import * as React from 'react';
+ import * as React from 'react';
 import { Button, StyleSheet, TextInput } from 'react-native';
-import { Text, View } from '../components/Themed';
+import {  View } from '../components/Themed';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../types';
 import { gql, useMutation, useQuery, InMemoryCache } from '@apollo/client';
+import { Card, Text, } from '@ui-kitten/components';
 
 export default function LoginScreen({
   navigation,
@@ -51,6 +52,7 @@ export default function LoginScreen({
   }
   return (
     <View style={styles.container}>
+      <Card>
       <Text style={styles.title}>Welcome to Steadfast!</Text>
         <Text style={styles.title}>Email</Text>
         <TextInput
@@ -66,6 +68,8 @@ export default function LoginScreen({
         </TextInput>
         <Button title='Login' onPress={loginUser}><Text>Login!</Text></Button>  
         {mutationLoading && <Text>Loading...</Text>}
+      </Card>
+
     </View>
   )
 }

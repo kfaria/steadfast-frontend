@@ -15,7 +15,7 @@ import {
   useLazyQuery
 } from '@apollo/client';
 import { Text, View } from './Themed';
-import * as theme from '../assets/theme.ts' 
+import * as theme from '../assets/theme' 
 
 
 type props = {

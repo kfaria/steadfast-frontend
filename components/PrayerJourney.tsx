@@ -17,7 +17,7 @@ import { Text, View } from './Themed';
 import { gql, useQuery, useApolloClient } from '@apollo/client';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import * as theme from '../assets/theme.ts' 
+import * as theme from '../assets/theme' 
 const { width, height } = Dimensions.get('window');
 
 export default function PrayerJourney({ path, navigation }: { path: string, navigation: any }) {
